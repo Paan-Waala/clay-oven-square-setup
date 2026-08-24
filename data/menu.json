@@ -1,0 +1,1210 @@
+[
+ {
+  "name": "1516 Lager",
+  "variation": "Regular",
+  "description": "341 ml",
+  "category": "Local Beer & Cider",
+  "price": "7.00",
+  "alcohol": true
+ },
+ {
+  "name": "Abhi's Special",
+  "variation": "Regular",
+  "description": "1 oz",
+  "category": "Special Coffees",
+  "price": "10.50",
+  "alcohol": true
+ },
+ {
+  "name": "Alamos",
+  "variation": "6 oz",
+  "description": "Malbec, Argentina",
+  "category": "Red Wine",
+  "price": "10.50",
+  "alcohol": true
+ },
+ {
+  "name": "Alamos",
+  "variation": "9 oz",
+  "description": "",
+  "category": "Red Wine",
+  "price": "12.50",
+  "alcohol": false
+ },
+ {
+  "name": "Alamos",
+  "variation": "Bottle",
+  "description": "",
+  "category": "Red Wine",
+  "price": "42.00",
+  "alcohol": false
+ },
+ {
+  "name": "Aloo Gobhi",
+  "variation": "Regular",
+  "description": "Cauliflower & potatoes cooked in fresh onions, tomatoes & spices.",
+  "category": "Vegetarian Dishes",
+  "price": "19.95",
+  "alcohol": false
+ },
+ {
+  "name": "Aloo Mutter",
+  "variation": "Regular",
+  "description": "Green peas cooked with potato cubes in an onion-based sauce.",
+  "category": "Vegetarian Dishes",
+  "price": "18.95",
+  "alcohol": false
+ },
+ {
+  "name": "Apple Cider",
+  "variation": "Regular",
+  "description": "355 ml",
+  "category": "Local Beer & Cider",
+  "price": "6.95",
+  "alcohol": true
+ },
+ {
+  "name": "Assorted Appetizer Platter",
+  "variation": "Regular",
+  "description": "A delightful combination of Samosa (1pc), Chicken Tikka (2pc) & Lamb Seekh Kebab (2pc).",
+  "category": "Appetizers",
+  "price": "13.95",
+  "alcohol": false
+ },
+ {
+  "name": "Baileys",
+  "variation": "Regular",
+  "description": "1 oz",
+  "category": "Special Coffees",
+  "price": "10.50",
+  "alcohol": true
+ },
+ {
+  "name": "Baingan Bharta",
+  "variation": "Regular",
+  "description": "Baked & mashed eggplant cooked with onions, tomatoes & fine herbs.",
+  "category": "Vegetarian Dishes",
+  "price": "19.95",
+  "alcohol": false
+ },
+ {
+  "name": "Butter Chicken",
+  "variation": "Regular",
+  "description": "Boneless chicken breast cooked in creamy tomato sauce.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Castillo de Almansa",
+  "variation": "6 oz",
+  "description": "Tempranillo, Spain",
+  "category": "Red Wine",
+  "price": "10.00",
+  "alcohol": true
+ },
+ {
+  "name": "Castillo de Almansa",
+  "variation": "9 oz",
+  "description": "",
+  "category": "Red Wine",
+  "price": "12.00",
+  "alcohol": false
+ },
+ {
+  "name": "Castillo de Almansa",
+  "variation": "Bottle",
+  "description": "",
+  "category": "Red Wine",
+  "price": "40.00",
+  "alcohol": false
+ },
+ {
+  "name": "Catena",
+  "variation": "Bottle",
+  "description": "Malbec, Argentina",
+  "category": "Red Wine",
+  "price": "55.00",
+  "alcohol": true
+ },
+ {
+  "name": "Chai Tea",
+  "variation": "Regular",
+  "description": "",
+  "category": "Beverages",
+  "price": "4.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chana Masala",
+  "variation": "Regular",
+  "description": "Curried chickpeas cooked in a special blend of spices.",
+  "category": "Vegetarian Dishes",
+  "price": "18.95",
+  "alcohol": false
+ },
+ {
+  "name": "Cheese Naan",
+  "variation": "Regular",
+  "description": "Naan bread stuffed with cottage cheese, baked in tandoor.",
+  "category": "Tandoori Bread / Roti",
+  "price": "7.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Biryani",
+  "variation": "Regular",
+  "description": "Steamed rice cooked with chicken & cilantro.",
+  "category": "Rice",
+  "price": "20.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Curry",
+  "variation": "Regular",
+  "description": "Boneless chicken cooked with spices in our signature curry.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Dahiwala",
+  "variation": "Regular",
+  "description": "Boneless chicken cooked with freshly ground spices in a yogurt- based sauce.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Hyderabadi",
+  "variation": "Regular",
+  "description": "An excellent chicken curry dish from Hyderabad, a province of India.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Korma",
+  "variation": "Regular",
+  "description": "Chicken cooked in a mild creamy gravy and spices.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Naan",
+  "variation": "Regular",
+  "description": "Naan bread stuffed with a blend of chopped tandoori chicken, cilantro & mild seasoning.",
+  "category": "Tandoori Bread / Roti",
+  "price": "6.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Pakora",
+  "variation": "Regular",
+  "description": "Marinated chicken breast strips in our special Tandoori batter, deep- fried to perfection.",
+  "category": "Appetizers",
+  "price": "15.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Rogan Josh",
+  "variation": "Regular",
+  "description": "Boneless chicken cooked with rich onion-tomato gravy, plain yogurt, and spices.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Saag",
+  "variation": "Regular",
+  "description": "Boneless chicken with spinach, cooked with garlic, ginger & Indian spices.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Tikka",
+  "variation": "Regular",
+  "description": "Tender chicken breast marinated in our chef's special seasonings, grilled in our tandoor oven.",
+  "category": "Tandoori Specialities",
+  "price": "24.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Tikka Masala",
+  "variation": "Regular",
+  "description": "Boneless pieces of chicken cooked in an onion sauce, tomato sauce with onion, green pepper & mild spices.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chicken Vindaloo",
+  "variation": "Regular",
+  "description": "Boneless pieces of chicken mixed with potatoes",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chilly Chicken",
+  "variation": "Regular",
+  "description": "Boneless chicken cooked with garlic, pepper, chilies & Indian spices.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Chutney",
+  "variation": "Regular",
+  "description": "",
+  "category": "Extras",
+  "price": "3.99",
+  "alcohol": false
+ },
+ {
+  "name": "Cloudy Bay",
+  "variation": "Bottle",
+  "description": "Sauvignon Blanc, New Zealand",
+  "category": "White Wine",
+  "price": "95.00",
+  "alcohol": true
+ },
+ {
+  "name": "Cobra",
+  "variation": "Regular",
+  "description": "India · 330 ml",
+  "category": "Imported Beer",
+  "price": "8.95",
+  "alcohol": true
+ },
+ {
+  "name": "Coors Lite",
+  "variation": "Regular",
+  "description": "341 ml",
+  "category": "Local Beer & Cider",
+  "price": "7.00",
+  "alcohol": true
+ },
+ {
+  "name": "Corona",
+  "variation": "Regular",
+  "description": "Mexico · 330 ml",
+  "category": "Imported Beer",
+  "price": "7.95",
+  "alcohol": true
+ },
+ {
+  "name": "Coteaux d'Aix-en-Provence Rosé",
+  "variation": "6 oz",
+  "description": "Maison Breban Villa Aix",
+  "category": "Rosé Wine",
+  "price": "14.00",
+  "alcohol": true
+ },
+ {
+  "name": "Coteaux d'Aix-en-Provence Rosé",
+  "variation": "9 oz",
+  "description": "",
+  "category": "Rosé Wine",
+  "price": "17.00",
+  "alcohol": false
+ },
+ {
+  "name": "Coteaux d'Aix-en-Provence Rosé",
+  "variation": "Bottle",
+  "description": "",
+  "category": "Rosé Wine",
+  "price": "53.00",
+  "alcohol": false
+ },
+ {
+  "name": "Czechvar",
+  "variation": "Regular",
+  "description": "Czech · 500 ml",
+  "category": "Imported Beer",
+  "price": "8.95",
+  "alcohol": true
+ },
+ {
+  "name": "Dahi Puri",
+  "variation": "Regular",
+  "description": "",
+  "category": "Appetizers",
+  "price": "9.95",
+  "alcohol": false
+ },
+ {
+  "name": "Dal Maharani",
+  "variation": "Regular",
+  "description": "An excellent combination of lentils & beans cooked with rare Indian spices.",
+  "category": "Vegetarian Dishes",
+  "price": "18.95",
+  "alcohol": false
+ },
+ {
+  "name": "Daou Paso Robles",
+  "variation": "Bottle",
+  "description": "Chardonnay, California",
+  "category": "White Wine",
+  "price": "65.00",
+  "alcohol": true
+ },
+ {
+  "name": "Dhania Gosht",
+  "variation": "Regular",
+  "description": "Succulent pieces o lamb, cooked in a blend of cilantro &curry spices.Delicious!",
+  "category": "Lamb Specialities",
+  "price": "22.95",
+  "alcohol": false
+ },
+ {
+  "name": "Di Lenardo",
+  "variation": "6 oz",
+  "description": "Pinot Gris, Italy",
+  "category": "White Wine",
+  "price": "13.00",
+  "alcohol": true
+ },
+ {
+  "name": "Di Lenardo",
+  "variation": "9 oz",
+  "description": "",
+  "category": "White Wine",
+  "price": "16.00",
+  "alcohol": false
+ },
+ {
+  "name": "Di Lenardo",
+  "variation": "Bottle",
+  "description": "",
+  "category": "White Wine",
+  "price": "50.00",
+  "alcohol": false
+ },
+ {
+  "name": "Espresso Martini",
+  "variation": "Regular",
+  "description": "2 oz",
+  "category": "Cocktails",
+  "price": "12.50",
+  "alcohol": true
+ },
+ {
+  "name": "Extra chicken",
+  "variation": "Regular",
+  "description": "",
+  "category": "Extras",
+  "price": "3.99",
+  "alcohol": false
+ },
+ {
+  "name": "Extra lamb",
+  "variation": "Regular",
+  "description": "",
+  "category": "Extras",
+  "price": "3.99",
+  "alcohol": false
+ },
+ {
+  "name": "Fish Pakora",
+  "variation": "Regular",
+  "description": "Deep-fried marinated fish in our special Tandoori batter (9 pcs.).",
+  "category": "Appetizers",
+  "price": "16.95",
+  "alcohol": false
+ },
+ {
+  "name": "Garlic Naan",
+  "variation": "Regular",
+  "description": "Delicious naan bread topped with garlic & herbs.",
+  "category": "Tandoori Bread / Roti",
+  "price": "3.95",
+  "alcohol": false
+ },
+ {
+  "name": "Goa Chicken Curry",
+  "variation": "Regular",
+  "description": "Boneless chicken with spinach, cooked with garlic, ginger & Indian spices.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Goa Fish Curry",
+  "variation": "Regular",
+  "description": "Fish cooked in coconut, onion sauce & Indian spices.",
+  "category": "Seafood Specialities",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Goa Prawn Curry",
+  "variation": "Regular",
+  "description": "Shrimp cooked in a coconut- based curry sauce.",
+  "category": "Seafood Specialities",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Gray Monk",
+  "variation": "6 oz",
+  "description": "Riesling, BC, Canada",
+  "category": "White Wine",
+  "price": "12.00",
+  "alcohol": true
+ },
+ {
+  "name": "Gray Monk",
+  "variation": "9 oz",
+  "description": "",
+  "category": "White Wine",
+  "price": "14.50",
+  "alcohol": false
+ },
+ {
+  "name": "Gray Monk",
+  "variation": "Bottle",
+  "description": "",
+  "category": "White Wine",
+  "price": "46.00",
+  "alcohol": false
+ },
+ {
+  "name": "Gulab Jamun",
+  "variation": "Regular",
+  "description": "Dry milk dumpling dipped in honey sauce.",
+  "category": "Dessert",
+  "price": "5.95",
+  "alcohol": false
+ },
+ {
+  "name": "HH 1516 Lager",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm · 341 ml",
+  "category": "Happy Hour",
+  "price": "5.00",
+  "alcohol": true
+ },
+ {
+  "name": "HH Chai Tea",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm",
+  "category": "Happy Hour",
+  "price": "2.50",
+  "alcohol": false
+ },
+ {
+  "name": "HH Corona",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm · 330 ml",
+  "category": "Happy Hour",
+  "price": "5.50",
+  "alcohol": true
+ },
+ {
+  "name": "HH Dahi Puri",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm",
+  "category": "Happy Hour",
+  "price": "7.50",
+  "alcohol": false
+ },
+ {
+  "name": "HH House Red",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm · house pour, ask the server for today’s wine",
+  "category": "Happy Hour",
+  "price": "6.00",
+  "alcohol": true
+ },
+ {
+  "name": "HH House White",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm · house pour, ask the server for today’s wine",
+  "category": "Happy Hour",
+  "price": "6.00",
+  "alcohol": true
+ },
+ {
+  "name": "HH Masala Fries",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm",
+  "category": "Happy Hour",
+  "price": "3.50",
+  "alcohol": false
+ },
+ {
+  "name": "HH Samosa",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm",
+  "category": "Happy Hour",
+  "price": "3.50",
+  "alcohol": false
+ },
+ {
+  "name": "HH Veg. Pakora",
+  "variation": "Regular",
+  "description": "Happy hour 4:00-6:00 pm",
+  "category": "Happy Hour",
+  "price": "7.50",
+  "alcohol": false
+ },
+ {
+  "name": "Heineken",
+  "variation": "Regular",
+  "description": "Holland · 330 ml",
+  "category": "Imported Beer",
+  "price": "7.95",
+  "alcohol": true
+ },
+ {
+  "name": "Henkell Trocken Piccolo",
+  "variation": "200 ml",
+  "description": "",
+  "category": "Sparkling Wine",
+  "price": "13.50",
+  "alcohol": true
+ },
+ {
+  "name": "Henkell Trocken Piccolo",
+  "variation": "375 ml",
+  "description": "",
+  "category": "Sparkling Wine",
+  "price": "21.50",
+  "alcohol": false
+ },
+ {
+  "name": "Honey Comb Amber Ale",
+  "variation": "Regular",
+  "description": "473 ml",
+  "category": "Local Beer & Cider",
+  "price": "7.00",
+  "alcohol": true
+ },
+ {
+  "name": "Jacob's Creek",
+  "variation": "6 oz",
+  "description": "Chardonnay, Australia",
+  "category": "White Wine",
+  "price": "9.00",
+  "alcohol": true
+ },
+ {
+  "name": "Jacob's Creek",
+  "variation": "9 oz",
+  "description": "",
+  "category": "White Wine",
+  "price": "10.50",
+  "alcohol": false
+ },
+ {
+  "name": "Jacob's Creek",
+  "variation": "Bottle",
+  "description": "",
+  "category": "White Wine",
+  "price": "35.00",
+  "alcohol": false
+ },
+ {
+  "name": "Josh Cellars",
+  "variation": "6 oz",
+  "description": "Chardonnay, California",
+  "category": "White Wine",
+  "price": "12.00",
+  "alcohol": true
+ },
+ {
+  "name": "Josh Cellars",
+  "variation": "9 oz",
+  "description": "",
+  "category": "White Wine",
+  "price": "15.00",
+  "alcohol": false
+ },
+ {
+  "name": "Josh Cellars",
+  "variation": "Bottle",
+  "description": "",
+  "category": "White Wine",
+  "price": "48.00",
+  "alcohol": false
+ },
+ {
+  "name": "Katchumber Raita",
+  "variation": "Regular",
+  "description": "A tangy seasoned yogurt to enhance your appetite.",
+  "category": "Vegetarian Dishes",
+  "price": "5.95",
+  "alcohol": false
+ },
+ {
+  "name": "Kheer",
+  "variation": "Regular",
+  "description": "Sweet rice & milk pudding flavored with raisins & cardamom.",
+  "category": "Dessert",
+  "price": "6.95",
+  "alcohol": false
+ },
+ {
+  "name": "Kingfisher",
+  "variation": "Regular",
+  "description": "India · 330 ml",
+  "category": "Imported Beer",
+  "price": "8.95",
+  "alcohol": true
+ },
+ {
+  "name": "Kokanee",
+  "variation": "Regular",
+  "description": "341 ml",
+  "category": "Local Beer & Cider",
+  "price": "7.00",
+  "alcohol": true
+ },
+ {
+  "name": "Lamb Biryani",
+  "variation": "Regular",
+  "description": "Steamed rice cooked with lamb & cilantro.",
+  "category": "Rice",
+  "price": "21.99",
+  "alcohol": false
+ },
+ {
+  "name": "Lamb Curry",
+  "variation": "Regular",
+  "description": "Boneless lamb cooked in onion and authentic spices.",
+  "category": "Lamb Specialities",
+  "price": "22.95",
+  "alcohol": false
+ },
+ {
+  "name": "Lamb Korma",
+  "variation": "Regular",
+  "description": "Boneless lamb pieces cooked in mild creamy gravy and Indian spices",
+  "category": "Lamb Specialities",
+  "price": "22.95",
+  "alcohol": false
+ },
+ {
+  "name": "Lamb Vindaloo",
+  "variation": "Regular",
+  "description": "Lamb cooked with potatoes, garlic, ginger, and traditional Indian herbs & spices.",
+  "category": "Lamb Specialities",
+  "price": "22.95",
+  "alcohol": false
+ },
+ {
+  "name": "Long Island Iced Tea",
+  "variation": "Regular",
+  "description": "2 oz",
+  "category": "Cocktails",
+  "price": "11.50",
+  "alcohol": true
+ },
+ {
+  "name": "Mango Chicken Curry",
+  "variation": "Regular",
+  "description": "Boneless chicken cooked in mango gravy and spices.",
+  "category": "Chicken Wonder",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Mango Ice Cream",
+  "variation": "Regular",
+  "description": "A traditional Indian ice cream flavored with mango & cardamom.",
+  "category": "Dessert",
+  "price": "5.95",
+  "alcohol": false
+ },
+ {
+  "name": "Mango chutney",
+  "variation": "Regular",
+  "description": "",
+  "category": "Extras",
+  "price": "3.99",
+  "alcohol": false
+ },
+ {
+  "name": "Margarita",
+  "variation": "Regular",
+  "description": "2 oz",
+  "category": "Cocktails",
+  "price": "11.50",
+  "alcohol": true
+ },
+ {
+  "name": "Martini",
+  "variation": "Regular",
+  "description": "2 oz",
+  "category": "Cocktails",
+  "price": "11.50",
+  "alcohol": true
+ },
+ {
+  "name": "Masala Fries",
+  "variation": "Regular",
+  "description": "",
+  "category": "Appetizers",
+  "price": "5.95",
+  "alcohol": false
+ },
+ {
+  "name": "Mikes Hard Lemonade",
+  "variation": "Regular",
+  "description": "355 ml",
+  "category": "RTDs",
+  "price": "6.95",
+  "alcohol": true
+ },
+ {
+  "name": "Mixed Grill",
+  "variation": "Regular",
+  "description": "Sizzling hot combination of jumbo shrimp, seekh kebab & chicken tikka. A great sampler.",
+  "category": "Tandoori Specialities",
+  "price": "26.95",
+  "alcohol": false
+ },
+ {
+  "name": "Mixed Vegetable Korma",
+  "variation": "Regular",
+  "description": "A colorful combination of mixed vegetables cooked.",
+  "category": "Vegetarian Dishes",
+  "price": "18.95",
+  "alcohol": false
+ },
+ {
+  "name": "Mojito",
+  "variation": "Regular",
+  "description": "2 oz",
+  "category": "Cocktails",
+  "price": "12.50",
+  "alcohol": true
+ },
+ {
+  "name": "Molson Canadian",
+  "variation": "Regular",
+  "description": "341 ml",
+  "category": "Local Beer & Cider",
+  "price": "7.00",
+  "alcohol": true
+ },
+ {
+  "name": "Monte Cristo",
+  "variation": "Regular",
+  "description": "1 oz",
+  "category": "Special Coffees",
+  "price": "10.50",
+  "alcohol": true
+ },
+ {
+  "name": "Moscow Mule",
+  "variation": "Regular",
+  "description": "2 oz",
+  "category": "Cocktails",
+  "price": "12.50",
+  "alcohol": true
+ },
+ {
+  "name": "Mutter Mushroom",
+  "variation": "Regular",
+  "description": "A delightful combination of garden-fresh mushrooms & green peas in a rich onion-based sauce.",
+  "category": "Vegetarian Dishes",
+  "price": "18.95",
+  "alcohol": false
+ },
+ {
+  "name": "Mutter Paneer",
+  "variation": "Regular",
+  "description": "Green peas cooked in onions sauce, tomatoes mixed with fresh Homemade cheese & a dash of spices.",
+  "category": "Vegetarian Dishes",
+  "price": "18.95",
+  "alcohol": false
+ },
+ {
+  "name": "Naan",
+  "variation": "Regular",
+  "description": "A must for every meal, is white-leavened bread.",
+  "category": "Tandoori Bread / Roti",
+  "price": "2.95",
+  "alcohol": false
+ },
+ {
+  "name": "Nude",
+  "variation": "Regular",
+  "description": "355 ml",
+  "category": "RTDs",
+  "price": "6.95",
+  "alcohol": true
+ },
+ {
+  "name": "Onion Naan",
+  "variation": "Regular",
+  "description": "Fine flour bread stuffed with onions & fine herbs.",
+  "category": "Tandoori Bread / Roti",
+  "price": "6.95",
+  "alcohol": false
+ },
+ {
+  "name": "Oyster Bay",
+  "variation": "6 oz",
+  "description": "Sauvignon Blanc, New Zealand",
+  "category": "White Wine",
+  "price": "12.50",
+  "alcohol": true
+ },
+ {
+  "name": "Oyster Bay",
+  "variation": "9 oz",
+  "description": "",
+  "category": "White Wine",
+  "price": "15.50",
+  "alcohol": false
+ },
+ {
+  "name": "Oyster Bay",
+  "variation": "Bottle",
+  "description": "",
+  "category": "White Wine",
+  "price": "49.00",
+  "alcohol": false
+ },
+ {
+  "name": "Palak Paneer",
+  "variation": "Regular",
+  "description": "A perfect combination of fresh spinach & homemade cottage cheese with ginger & rare spices.",
+  "category": "Vegetarian Dishes",
+  "price": "19.95",
+  "alcohol": false
+ },
+ {
+  "name": "Paneer Makhani",
+  "variation": "Regular",
+  "description": "A vegetable delight. Chunks of fresh homemade cottage cheese, cooked in a tomato-based sauce with fenugreek & delicious blends of chefs' secret spices.",
+  "category": "Vegetarian Dishes",
+  "price": "18.95",
+  "alcohol": false
+ },
+ {
+  "name": "Paneer Pakora",
+  "variation": "Regular",
+  "description": "Cottage cheese dipped in chickpea batter & fried.",
+  "category": "Appetizers",
+  "price": "11.95",
+  "alcohol": false
+ },
+ {
+  "name": "Paneer Tikka",
+  "variation": "Regular",
+  "description": "Assorted vegetables & paneer marinated in yogurt, garlic, ginger paste, special Indian spices & char-broiled.",
+  "category": "Tandoori Specialities",
+  "price": "22.95",
+  "alcohol": false
+ },
+ {
+  "name": "Papadum",
+  "variation": "Regular",
+  "description": "",
+  "category": "Extras",
+  "price": "0.99",
+  "alcohol": false
+ },
+ {
+  "name": "Pea Pulao",
+  "variation": "Regular",
+  "description": "Steamed rice cooked with cumin seeds and peas.",
+  "category": "Rice",
+  "price": "6.95",
+  "alcohol": false
+ },
+ {
+  "name": "Peach Cider",
+  "variation": "Regular",
+  "description": "355 ml",
+  "category": "Local Beer & Cider",
+  "price": "6.95",
+  "alcohol": true
+ },
+ {
+  "name": "Pear Cider",
+  "variation": "Regular",
+  "description": "355 ml",
+  "category": "Local Beer & Cider",
+  "price": "6.95",
+  "alcohol": true
+ },
+ {
+  "name": "Pickles",
+  "variation": "Regular",
+  "description": "",
+  "category": "Extras",
+  "price": "3.99",
+  "alcohol": false
+ },
+ {
+  "name": "Plain Rice",
+  "variation": "Regular",
+  "description": "Steamed white rice",
+  "category": "Rice",
+  "price": "7.95",
+  "alcohol": false
+ },
+ {
+  "name": "Prawn Korma",
+  "variation": "Regular",
+  "description": "Jumbo prawn cooked in mild creamy gravy.",
+  "category": "Seafood Specialities",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Prawn Pakora",
+  "variation": "Regular",
+  "description": "Deep-fried marinated prawn cooked in Tandoori batter.",
+  "category": "Appetizers",
+  "price": "16.95",
+  "alcohol": false
+ },
+ {
+  "name": "Prawn Rogan Josh",
+  "variation": "Regular",
+  "description": "Jumbo prawn cooked with rich onion-tomato gravy, plain yogurt, and spices.",
+  "category": "Seafood Specialities",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Prawn Vindaloo",
+  "variation": "Regular",
+  "description": "Zesty curry cooked with prawns & potatoes in a tangy sauce with vinegar.",
+  "category": "Seafood Specialities",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Premium Helles Lager",
+  "variation": "Regular",
+  "description": "473 ml",
+  "category": "Local Beer & Cider",
+  "price": "7.00",
+  "alcohol": true
+ },
+ {
+  "name": "Rasmalai",
+  "variation": "Regular",
+  "description": "A popular Indian dessert of homemade cheese with cold pistachio.",
+  "category": "Dessert",
+  "price": "5.95",
+  "alcohol": false
+ },
+ {
+  "name": "Ravenswood Vintners Blend",
+  "variation": "Bottle",
+  "description": "Zinfandel, USA",
+  "category": "Red Wine",
+  "price": "49.00",
+  "alcohol": true
+ },
+ {
+  "name": "Robert Mondavi",
+  "variation": "6 oz",
+  "description": "Pinot Noir, California",
+  "category": "Red Wine",
+  "price": "10.00",
+  "alcohol": true
+ },
+ {
+  "name": "Robert Mondavi",
+  "variation": "9 oz",
+  "description": "",
+  "category": "Red Wine",
+  "price": "12.00",
+  "alcohol": false
+ },
+ {
+  "name": "Robert Mondavi",
+  "variation": "Bottle",
+  "description": "",
+  "category": "Red Wine",
+  "price": "40.00",
+  "alcohol": false
+ },
+ {
+  "name": "Rogan Josh",
+  "variation": "Regular",
+  "description": "Boneless lamb cooked with rich onion-tomato gravy, plain yogurt, and spices.",
+  "category": "Lamb Specialities",
+  "price": "22.95",
+  "alcohol": false
+ },
+ {
+  "name": "Roti",
+  "variation": "Regular",
+  "description": "Leavened wheat bread baked in tandoor.",
+  "category": "Tandoori Bread / Roti",
+  "price": "2.95",
+  "alcohol": false
+ },
+ {
+  "name": "Saag Gosht",
+  "variation": "Regular",
+  "description": "A perfect blend of lamb & spinach",
+  "category": "Lamb Specialities",
+  "price": "22.95",
+  "alcohol": false
+ },
+ {
+  "name": "Samosa",
+  "variation": "Regular",
+  "description": "2 pc · Vegetable turnovers stuffed with potatoes & green peas, tempered with cumin seeds & mild spices.",
+  "category": "Appetizers",
+  "price": "5.95",
+  "alcohol": false
+ },
+ {
+  "name": "Sangria",
+  "variation": "Glass",
+  "description": "",
+  "category": "Cocktails",
+  "price": "10.50",
+  "alcohol": true
+ },
+ {
+  "name": "Sangria",
+  "variation": "500 ml",
+  "description": "",
+  "category": "Cocktails",
+  "price": "20.50",
+  "alcohol": false
+ },
+ {
+  "name": "Seghesio Sonoma",
+  "variation": "Bottle",
+  "description": "Zinfandel, California",
+  "category": "Red Wine",
+  "price": "72.00",
+  "alcohol": true
+ },
+ {
+  "name": "Shrimp Biryani",
+  "variation": "Regular",
+  "description": "Steamed rice cooked with prawns & cilantro.",
+  "category": "Rice",
+  "price": "21.99",
+  "alcohol": false
+ },
+ {
+  "name": "Shrimp Curry",
+  "variation": "Regular",
+  "description": "Shrimp cooked in rich onion gravy and spices.",
+  "category": "Seafood Specialities",
+  "price": "21.95",
+  "alcohol": false
+ },
+ {
+  "name": "Sleeman Honey Lager",
+  "variation": "Regular",
+  "description": "341 ml",
+  "category": "Local Beer & Cider",
+  "price": "7.00",
+  "alcohol": true
+ },
+ {
+  "name": "Spinach Naan",
+  "variation": "Regular",
+  "description": "Naan bread stuffed with spinach & herbs baked in tandoor.",
+  "category": "Tandoori Bread / Roti",
+  "price": "6.95",
+  "alcohol": false
+ },
+ {
+  "name": "Stella",
+  "variation": "Regular",
+  "description": "Belgium · 330 ml",
+  "category": "Imported Beer",
+  "price": "7.95",
+  "alcohol": true
+ },
+ {
+  "name": "Taj Mahal",
+  "variation": "Regular",
+  "description": "India · 330 ml",
+  "category": "Imported Beer",
+  "price": "8.95",
+  "alcohol": true
+ },
+ {
+  "name": "Tandoori Chicken",
+  "variation": "Regular",
+  "description": "Chicken (with bone) marinated in yogurt and mild spices, roasted in our tandoor oven.",
+  "category": "Tandoori Specialities",
+  "price": "24.95",
+  "alcohol": false
+ },
+ {
+  "name": "Tandoori Salmon",
+  "variation": "Regular",
+  "description": "wild sockeye salmon marinated in fresh ginger, garlic, Indian spices & char-broiled.",
+  "category": "Tandoori Specialities",
+  "price": "27.95",
+  "alcohol": false
+ },
+ {
+  "name": "Tandoori Shrimp",
+  "variation": "Regular",
+  "description": "Jumbo prawns marinated in a special blend of mild spices & herbs then roasted in the Tandoor.",
+  "category": "Tandoori Specialities",
+  "price": "25.95",
+  "alcohol": false
+ },
+ {
+  "name": "Veg. Pakora",
+  "variation": "Regular",
+  "description": "Mix Vegetables dipped in chickpea batter & fried.",
+  "category": "Appetizers",
+  "price": "11.95",
+  "alcohol": false
+ },
+ {
+  "name": "Vegetable Biryani",
+  "variation": "Regular",
+  "description": "Steamed rice cooked with mixed vegetables.",
+  "category": "Rice",
+  "price": "19.95",
+  "alcohol": false
+ },
+ {
+  "name": "Wakefield Clare Valley",
+  "variation": "6 oz",
+  "description": "Shiraz, Australia",
+  "category": "Red Wine",
+  "price": "11.50",
+  "alcohol": true
+ },
+ {
+  "name": "Wakefield Clare Valley",
+  "variation": "9 oz",
+  "description": "",
+  "category": "Red Wine",
+  "price": "14.00",
+  "alcohol": false
+ },
+ {
+  "name": "Wakefield Clare Valley",
+  "variation": "Bottle",
+  "description": "",
+  "category": "Red Wine",
+  "price": "45.00",
+  "alcohol": false
+ },
+ {
+  "name": "White Claw",
+  "variation": "Regular",
+  "description": "355 ml",
+  "category": "RTDs",
+  "price": "6.95",
+  "alcohol": true
+ }
+]

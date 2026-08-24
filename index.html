@@ -4,185 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Clay Oven — Square setup</title>
-<style>
-  :root {
-    --bg: #ffffff;
-    --fg: #0a0a0a;
-    --muted: #737373;
-    --line: #eaeaea;
-    --soft: #fafafa;
-    --accent: #b45309;
-    --ok: #15803d;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0a0a0a;
-      --fg: #ededed;
-      --muted: #8f8f8f;
-      --line: #1f1f1f;
-      --soft: #111111;
-      --accent: #f5b567;
-      --ok: #4ade80;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font: 16px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-feature-settings: "kern";
-    -webkit-font-smoothing: antialiased;
-  }
-  main {
-    max-width: 44rem;
-    margin: 0 auto;
-    padding: 7rem 1.5rem 9rem;
-  }
-  h1 {
-    font-size: 1.75rem;
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    font-weight: 600;
-    margin: 0;
-  }
-  h2 {
-    font-size: 1.25rem;
-    letter-spacing: -0.015em;
-    font-weight: 600;
-    margin: 4.5rem 0 1.25rem;
-  }
-  h3 {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    margin: 2.25rem 0 0.75rem;
-  }
-  p { margin: 0 0 1.25rem; }
-  a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
-  a:hover { border-color: var(--muted); }
-  .meta {
-    color: var(--muted);
-    font-size: 0.875rem;
-    margin: 0.875rem 0 0;
-  }
-  .lede {
-    font-size: 1.0625rem;
-    margin: 2.5rem 0 0;
-    max-width: 38rem;
-  }
-  .figures {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem 1.5rem;
-    margin: 3.5rem 0 0;
-    padding: 2rem 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .figures b {
-    display: block;
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-  }
-  .figures span {
-    display: block;
-    color: var(--muted);
-    font-size: 0.8125rem;
-    margin-top: 0.25rem;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9375rem;
-    margin: 0 0 1.25rem;
-  }
-  th {
-    text-align: left;
-    font-weight: 500;
-    color: var(--muted);
-    font-size: 0.8125rem;
-    padding: 0 1rem 0.625rem 0;
-    border-bottom: 1px solid var(--line);
-  }
-  td {
-    padding: 0.75rem 1rem 0.75rem 0;
-    border-bottom: 1px solid var(--line);
-    vertical-align: top;
-  }
-  th:last-child, td:last-child { padding-right: 0; }
-  td.num {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-  ul { margin: 0 0 1.25rem; padding-left: 1.1rem; }
-  li { margin-bottom: 0.5rem; }
-  li::marker { color: var(--muted); }
-  code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.875em;
-    background: var(--soft);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 0.1em 0.35em;
-  }
-  pre {
-    background: var(--soft);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 1.125rem 1.25rem;
-    overflow-x: auto;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.8125rem;
-    line-height: 1.7;
-    margin: 0 0 1.25rem;
-  }
-  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
-  blockquote {
-    margin: 0 0 1.25rem;
-    padding-left: 1.125rem;
-    border-left: 2px solid var(--line);
-    color: var(--muted);
-  }
-  .tag {
-    display: inline-block;
-    font-size: 0.75rem;
-    letter-spacing: 0.01em;
-    padding: 0.1rem 0.5rem;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    color: var(--muted);
-    vertical-align: 0.1em;
-    margin-left: 0.5rem;
-    font-weight: 500;
-  }
-  .tag.open { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
-  .tag.done { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 30%, var(--line)); }
-  hr {
-    border: 0;
-    border-top: 1px solid var(--line);
-    margin: 4.5rem 0 0;
-  }
-  footer {
-    color: var(--muted);
-    font-size: 0.8125rem;
-    margin-top: 2rem;
-  }
-  @media (max-width: 640px) {
-    main { padding: 4rem 1.25rem 6rem; }
-    .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.5rem; }
-  }
-</style>
+<title>Clay Oven — Square point of sale</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+  <nav><span class="here">Clay Oven — Square</span></nav>
+</header>
 <main>
-
   <h1>Clay Oven — Square point of sale</h1>
   <p class="meta">Built 24 August 2026 · Paan Waala</p>
-
   <p class="lede">The full menu is in Square, BC tax is applied and verified, happy hour is built, and a till is ready to pair.</p>
 
   <div class="figures">
@@ -192,120 +23,30 @@
     <div><b>50</b><span>alcohol items</span></div>
   </div>
 
-  <h2>The catalog</h2>
-
-  <p>Every dish and drink from Clay Oven's printed and web menus is in, filed under 21 categories: Appetizers, Tandoori Specialities, Seafood Specialities, Lamb Specialities, Chicken Wonder, Tandoori Bread / Roti, Rice, Vegetarian Dishes, Dessert, Extras, Beverages, Imported Beer, Local Beer &amp; Cider, Cocktails, RTDs, Special Coffees, Red Wine, White Wine, Rosé Wine, Sparkling Wine and Happy Hour.</p>
-
-  <p>Anything sold in more than one size is one button with sizes behind it, not two buttons:</p>
-
-  <ul>
-    <li>Wines poured by the glass — 6&nbsp;oz, 9&nbsp;oz, bottle</li>
-    <li>Bottle-only wines — bottle</li>
-    <li>Sangria — glass, 500&nbsp;ml</li>
-    <li>Henkell Trocken Piccolo — 200&nbsp;ml, 375&nbsp;ml</li>
+  <h2>The menu</h2>
+  <ul class="index">
+    <li><a href="menu/food/">Food</a><span>73 items</span></li>
+    <li><a href="menu/drinks/">Drinks</a><span>31 items</span></li>
+    <li><a href="menu/wine/">Wine</a><span>16 items</span></li>
+    <li><a href="menu/happy-hour/">Happy hour</a><span>9 items</span></li>
   </ul>
 
-  <h2>Tax</h2>
+  <h2>The setup</h2>
+  <ul class="index">
+    <li><a href="setup/tax/">Tax</a><span>GST 5% · liquor PST 10%</span></li>
+    <li><a href="setup/menu/">How the menu is arranged</a><span>sizes, channels, happy hour</span></li>
+    <li><a href="setup/till/">The till</a><span>1 device code</span></li>
+    <li><a href="setup/verification/">How this was checked</a><span>export and diff</span></li>
+    <li><a href="open/">Still open</a><span>3 items</span></li>
+  </ul>
 
-  <table>
-    <thead><tr><th>Tax</th><th>Rate</th><th>Applies to</th></tr></thead>
-    <tbody>
-      <tr><td>GST</td><td class="num">5%</td><td>Everything, including items added later</td></tr>
-      <tr><td>PST — Liquor</td><td class="num">10%</td><td>The 50 alcohol items only</td></tr>
-    </tbody>
-  </table>
+  <h2>What was done</h2>
 
-  <p>A food order rings 5%, a drinks order rings 15%, and a mixed ticket splits per line.</p>
+  <p>Clay Oven's printed and web menus were transcribed, priced and imported into a new Square catalog, then checked line by line against a fresh export of the live account. BC tax was applied — and Square's own suggested rate was overridden, because it would have been wrong for a restaurant. Happy hour was built as its own screen. One till was registered and is waiting to be paired.</p>
 
-  <h3>Square suggested the wrong rate</h3>
-
-  <p>Its setup wizard proposed 5% federal plus <b>British Columbia 7%</b> on everything. 7% is BC's general PST on goods — restaurant meals are exempt from it and liquor carries 10% instead. Accepting the suggestion would have over-taxed every food item by 7% and under-taxed every drink by 3%. The second rate was renamed, set to 10%, and narrowed to alcohol only.</p>
-
-  <p>Custom amounts inherit GST but not liquor PST, so an open-ring total does not quietly pick up alcohol tax.</p>
-
-  <h2>The owner's answers</h2>
-
-  <table>
-    <thead><tr><th>Question</th><th>Answer</th><th>Built</th></tr></thead>
-    <tbody>
-      <tr><td>Samosa price</td><td>$5.95 regular</td><td>Added to Appetizers</td></tr>
-      <tr><td>Chai Tea, Masala Fries, Dahi Puri</td><td>$4.95, $5.95, $9.95</td><td>Three items; Chai Tea opened a new Beverages category</td></tr>
-      <tr><td>Which Indian lagers</td><td>Kingfisher, Taj Mahal, Cobra</td><td>The vague "Indian Lagers" button is gone — three real buttons at $8.95</td></tr>
-      <tr><td>Biryani at $21.99</td><td>Correct as published</td><td>Unchanged</td></tr>
-      <tr><td>Missing seventh Tandoori dish</td><td>One was taken off the menu</td><td>Unchanged; six is right</td></tr>
-      <tr><td>House Red and House White</td><td>Changes daily, told to guests verbally</td><td>Generic $6 buttons reading "ask the server for today's wine"</td></tr>
-    </tbody>
-  </table>
-
-  <h2>Happy hour</h2>
-
-  <table>
-    <thead><tr><th>Item</th><th>Price</th></tr></thead>
-    <tbody>
-      <tr><td>Chai Tea</td><td class="num">$2.50</td></tr>
-      <tr><td>Samosa</td><td class="num">$3.50</td></tr>
-      <tr><td>Masala Fries</td><td class="num">$3.50</td></tr>
-      <tr><td>Veg. Pakora</td><td class="num">$7.50</td></tr>
-      <tr><td>Dahi Puri</td><td class="num">$7.50</td></tr>
-      <tr><td>1516 Lager</td><td class="num">$5.00</td></tr>
-      <tr><td>Corona</td><td class="num">$5.50</td></tr>
-      <tr><td>House Red</td><td class="num">$6.00</td></tr>
-      <tr><td>House White</td><td class="num">$6.00</td></tr>
-    </tbody>
-  </table>
-
-  <h3>It is a screen staff tap, not an automatic switch</h3>
-
-  <p>Square can put hours on a menu group, but its own editor says those hours schedule when a group "can be ordered on online ordering sites, delivery apps, and kiosks". The till is not on that list, and Clay Oven's menu is till-only, so a 4–6&nbsp;pm schedule there would do nothing. Genuinely automatic time-based pricing is Square's automatic-discount feature, which depends on a paid plan and was not touched.</p>
-
-  <h3>Separate buttons, not a second price on each dish</h3>
-
-  <p>A second price on Samosa, Corona, 1516 Lager, Veg. Pakora, Chai Tea, Masala Fries and Dahi Puri would make the till ask "which price?" on every one of those sales, all day, to serve a two-hour window. A Happy Hour category keeps the normal buttons at one tap. The cost is that samosa sales report on two lines instead of one, and deleting one category reverses it.</p>
-
-  <h2>Where the menu appears</h2>
-
-  <p>Points of sale only. Square offers a second channel that publishes the menu to a customer-facing Square Online site; clicking the location row silently selected both, which was caught before saving and turned back off. Putting Clay Oven's menu on a public website is their call, not a side effect of setting up a till.</p>
-
-  <h2>The till</h2>
-
-  <p>One device code, named <code>Clay Oven POS 1</code>, unpaired and waiting. Install Square Point of Sale, tap sign in, choose "use a device code", type it in. The code is a credential and was sent privately; it can be revoked and reissued at any time.</p>
-
-  <p>Standard mode was chosen deliberately. Quick Service, Full Service and Bar are Square for Restaurants modes and selecting one can pull the account onto a paid plan. Standard is free and rings orders fine. The mode can be changed later without a new code.</p>
-
-  <h2>How this was checked</h2>
-
-  <p>Not by trusting Square's green success banner. After every change the live catalog was exported back out of Square and compared line by line against what was meant to be there.</p>
-
-<pre><code>expected rows: 151   live rows: 151
-expected items: 129  live items: 129
-live categories: 21
-missing from Square: 0
-unexpected extras: 0
-price mismatches: 0
-category mismatches: 0
-alcohol items expected: 50  live: 50
-liquor PST missing: 0       liquor PST unexpected: 0
-RESULT: exact match</code></pre>
-
-  <p>GST does not appear in the export because it is a blanket rule rather than a per-item tag — which is what it should be, since new items inherit it. It was confirmed on the items instead: Butter Chicken carries GST only, Corona carries both taxes.</p>
-
-  <h2>Still open</h2>
-
-  <h3>Wine by the glass <span class="tag open">needs the owner</span></h3>
-
-  <p>Ravenswood, Catena, Seghesio, Daou and Cloudy Bay are built bottle-only, read from where the price columns stop on the wine card. If any of them are poured by the glass, that is ten missing prices — a minute's work once the 6&nbsp;oz and 9&nbsp;oz figures arrive.</p>
-
-  <h3>A price refresh is coming <span class="tag">expected</span></h3>
-
-  <blockquote>We are going to update the in house menus then we can update on the pos.</blockquote>
-
-  <h3>Taking payments <span class="tag open">owner decision</span></h3>
-
-  <p>Square's own checklist shows "start taking payments" already ticked from signup. No payment method, bank account or card processing was set up here. If it needs to be genuinely off, that is an account-level decision only the owner can make.</p>
-
+  <p>Six questions the menus could not answer were put to the owner and are now built in. One is still outstanding.</p>
   <hr>
-  <footer>Prepared by Operator for Clay Oven Indian Restaurant. Prices as confirmed on 24 August 2026.</footer>
-
+  <footer>Prepared by Operator for Clay Oven Indian Restaurant. Menu as built in Square on 24 August 2026.</footer>
 </main>
 </body>
 </html>
