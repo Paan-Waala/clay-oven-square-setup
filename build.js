@@ -97,14 +97,24 @@ const TOTAL_ALCOHOL = new Set(rows.filter(r => r.alcohol).map(r => r.name)).size
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+// Bumped when the stylesheet changes, so a reader who already has the old page
+// cached does not get the old design. Anyone already holding the link matters.
+const CSS_VERSION = '2';
+
+const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 function money(p) {
   const n = Number(p);
   return Number.isFinite(n) ? '$' + n.toFixed(2) : esc(p);
 }
 
+// Each size/price pair is its own no-wrap unit so a three-size wine wraps onto
+// two lines on a phone instead of pushing the table sideways.
 function priceCell(prices) {
-  if (prices.length === 1 && /^(regular)?$/i.test(prices[0].size || '')) return money(prices[0].price);
-  return prices.map(p => `<span class="size">${esc(p.size)}</span>&nbsp;${money(p.price)}`).join('<span class="sep">·</span>');
+  if (prices.length === 1 && /^(regular)?$/i.test(prices[0].size || '')) return `<span class="pp">${money(prices[0].price)}</span>`;
+  return prices
+    .map(p => `<span class="pp"><span class="size">${esc(p.size)}</span>&nbsp;${money(p.price)}</span>`)
+    .join('<span class="sep" aria-hidden="true">·</span>');
 }
 
 // Bottle-only on a reading of the wine card's truncated price columns, not on a
@@ -117,7 +127,7 @@ function menuSection(category) {
         <td>${esc(it.name)}${UNCONFIRMED.has(it.name) ? '<span class="tag open">bottle only?</span>' : ''}${it.description ? `<span class="note">${esc(it.description)}</span>` : ''}</td>
         <td class="num">${priceCell(it.prices)}</td>
       </tr>`).join('\n');
-  return `  <h2 id="${category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}">${esc(category)}</h2>
+  return `  <h2 class="cat" id="${slugify(category)}">${esc(category)}<span class="count">${items.length} item${items.length === 1 ? '' : 's'}</span></h2>
   <table class="menu">
     <tbody>
 ${body}
@@ -125,27 +135,101 @@ ${body}
   </table>`;
 }
 
-function page({ file, depth, title, heading, meta, crumbs = [], body }) {
+function jumpNav(categories) {
+  return `  <nav class="jump" aria-label="Categories on this page">
+${categories.map(c => `    <a href="#${slugify(c)}">${esc(c)}</a>`).join('\n')}
+  </nav>`;
+}
+
+// ------------------------------------------------------- site shape and chrome
+
+// Reading order. Drives the previous/next pager at the foot of every page.
+const ORDER = [
+  { path: '', label: 'Overview', kicker: 'Clay Oven — Square' },
+  { path: 'menu/', label: 'The menu', kicker: 'The menu' },
+  { path: 'menu/food/', label: 'Food', kicker: 'The menu' },
+  { path: 'menu/drinks/', label: 'Drinks', kicker: 'The menu' },
+  { path: 'menu/wine/', label: 'Wine', kicker: 'The menu' },
+  { path: 'menu/happy-hour/', label: 'Happy hour', kicker: 'The menu' },
+  { path: 'setup/', label: 'The setup', kicker: 'The setup' },
+  { path: 'setup/tax/', label: 'Tax', kicker: 'The setup' },
+  { path: 'setup/menu/', label: 'How the menu is arranged', kicker: 'The setup' },
+  { path: 'setup/till/', label: 'The till', kicker: 'The setup' },
+  { path: 'setup/verification/', label: 'How this was checked', kicker: 'The setup' },
+  { path: 'open/', label: 'Still open', kicker: 'Still open' },
+];
+
+const FOOTER = [
+  { title: 'The menu', paths: ['menu/', 'menu/food/', 'menu/drinks/', 'menu/wine/', 'menu/happy-hour/'] },
+  { title: 'The setup', paths: ['setup/', 'setup/tax/', 'setup/menu/', 'setup/till/', 'setup/verification/'] },
+  { title: 'This report', paths: ['', 'open/'] },
+];
+
+const labelOf = p => (ORDER.find(o => o.path === p) || {}).label || p;
+
+function pager(here, up) {
+  const i = ORDER.findIndex(o => o.path === here);
+  const prev = i > 0 ? ORDER[i - 1] : null;
+  const next = i >= 0 && i < ORDER.length - 1 ? ORDER[i + 1] : null;
+  if (!prev && !next) return '';
+  const cell = (p, dir, cls) => p
+    ? `<a class="${cls}" href="${up}${p.path}"><span class="dir">${dir}</span><span class="to">${esc(p.label)}</span></a>`
+    : '<span class="empty"></span>';
+  return `  <nav class="pager" aria-label="Previous and next page">
+    ${cell(prev, '← Previous', 'to-prev')}
+    ${cell(next, 'Next →', 'to-next')}
+  </nav>`;
+}
+
+function siteNav(here, up) {
+  return `  <nav class="sitenav" aria-label="All pages">
+${FOOTER.map(col => `    <div>
+      <h3>${esc(col.title)}</h3>
+      <ul class="pages">
+${col.paths.map(p => `        <li><a href="${up}${p}"${p === here ? ' aria-current="page"' : ''}>${esc(labelOf(p))}</a></li>`).join('\n')}
+      </ul>
+    </div>`).join('\n')}
+  </nav>`;
+}
+
+function page({ file, depth, title, heading, kicker, meta, crumbs = [], body }) {
   const up = '../'.repeat(depth);
-  const trail = crumbs.map(c => `<a href="${up}${c.href}">${esc(c.label)}</a>`).join('<span class="sep">/</span>');
+  const here = file.replace(/index\.html$/, '');
+  const trail = crumbs
+    .filter(c => c.href !== '')
+    .map((c, i, a) => i === a.length - 1
+      ? `<span class="here" aria-current="page">${esc(c.label)}</span>`
+      : `<a href="${up}${c.href}">${esc(c.label)}</a>`)
+    .join('<span class="slash" aria-hidden="true">/</span>');
   const html = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="${up}style.css">
+<link rel="stylesheet" href="${up}style.css?v=${CSS_VERSION}">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <header>
-  <nav>${trail || '<span class="here">Clay Oven — Square</span>'}</nav>
+  <div class="bar">
+    <a class="brand" href="${up || './'}"><span class="mark" aria-hidden="true">CO</span><span class="wordmark">Clay Oven</span><span class="sub">Square point of sale</span></a>
+    <nav class="crumbs" aria-label="Breadcrumb">${trail || '<span class="here" aria-current="page">Overview</span>'}</nav>
+  </div>
 </header>
-<main>
-  <h1>${esc(heading)}</h1>
-${meta ? `  <p class="meta">${meta}</p>\n` : ''}${body}
-  <hr>
-  <footer>Prepared by Operator for Clay Oven Indian Restaurant. Menu as built in Square on 24 August 2026.</footer>
+<main id="content">
+  <div class="pagehead">
+${kicker ? `    <p class="kicker">${esc(kicker)}</p>\n` : ''}    <h1>${esc(heading)}</h1>
+${meta ? `    <p class="meta">${meta}</p>\n` : ''}  </div>
+${body}
+${pager(here, up)}
+  <footer class="siteend">
+${siteNav(here, up)}
+    <p class="colophon">Prepared by Operator for Clay Oven Indian Restaurant. Menu as built in Square on 24 August 2026, generated from the live catalog export.</p>
+  </footer>
 </main>
 </body>
 </html>
@@ -157,7 +241,7 @@ ${meta ? `  <p class="meta">${meta}</p>\n` : ''}${body}
 
 function indexList(items) {
   return `  <ul class="index">
-${items.map(i => `    <li><a href="${i.href}">${esc(i.label)}</a><span>${esc(i.meta)}</span></li>`).join('\n')}
+${items.map(i => `    <li><a href="${i.href}"><span class="label">${esc(i.label)}</span><span class="detail">${esc(i.meta)}</span><span class="chev" aria-hidden="true">→</span></a></li>`).join('\n')}
   </ul>`;
 }
 
@@ -167,8 +251,9 @@ page({
   file: 'index.html',
   depth: 0,
   title: 'Clay Oven — Square point of sale',
+  kicker: 'Build report · 24 August 2026',
   heading: 'Clay Oven — Square point of sale',
-  meta: 'Built 24 August 2026 · Paan Waala',
+  meta: 'Prepared for Clay Oven Indian Restaurant by Paan Waala',
   body: `  <p class="lede">The full menu is in Square, BC tax is applied and verified, happy hour is built, and a till is ready to pair.</p>
 
   <div class="figures">
@@ -179,6 +264,8 @@ page({
   </div>
 
   <h2>The menu</h2>
+
+  <p>Every button a server will see, in the order the till shows it.</p>
 ${indexList([
     { href: 'menu/food/', label: 'Food', meta: `${countItems(GROUPS.food.categories)} items` },
     { href: 'menu/drinks/', label: 'Drinks', meta: `${countItems(GROUPS.drinks.categories)} items` },
@@ -187,13 +274,19 @@ ${indexList([
   ])}
 
   <h2>The setup</h2>
+
+  <p>What was built, what was decided, and how it was checked.</p>
 ${indexList([
     { href: 'setup/tax/', label: 'Tax', meta: 'GST 5% · liquor PST 10%' },
     { href: 'setup/menu/', label: 'How the menu is arranged', meta: 'sizes, channels, happy hour' },
     { href: 'setup/till/', label: 'The till', meta: '1 device code' },
     { href: 'setup/verification/', label: 'How this was checked', meta: 'export and diff' },
-    { href: 'open/', label: 'Still open', meta: '3 items' },
   ])}
+
+  <aside class="callout">
+    <p><b>One question still needs the owner.</b> Five wines — Ravenswood, Catena, Seghesio, Daou and Cloudy Bay — are built bottle-only. If any are poured by the glass, that is ten missing prices and a minute's work.</p>
+    <p class="cta"><a href="open/">See the three open items</a></p>
+  </aside>
 
   <h2>What was done</h2>
 
@@ -208,34 +301,37 @@ page({
   file: 'menu/index.html',
   depth: 1,
   title: 'The menu — Clay Oven',
+  kicker: 'The menu',
   heading: 'The menu',
   meta: `${TOTAL_ITEMS} items · ${TOTAL_ROWS} price points · ${TOTAL_CATS} categories`,
   crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'menu/', label: 'Menu' }],
-  body: `${indexList([
+  body: `  <p class="lede">This is what a server sees on the till, in the order Square shows it. Every price here is generated from the live catalog export, so the page and the till cannot drift apart.</p>
+${indexList([
     { href: 'food/', label: 'Food', meta: `${countItems(GROUPS.food.categories)} items` },
     { href: 'drinks/', label: 'Drinks', meta: `${countItems(GROUPS.drinks.categories)} items` },
     { href: 'wine/', label: 'Wine', meta: `${countItems(GROUPS.wine.categories)} items` },
     { href: 'happy-hour/', label: 'Happy hour', meta: `${countItems(GROUPS['happy-hour'].categories)} items` },
   ])}
 
-  <p>This is what a server sees on the till, in the order Square shows it. Anything sold in more than one size is one button with the sizes behind it, so wines, sangria and the Henkell piccolo do not take up several buttons each.</p>`,
+  <p>Anything sold in more than one size is one button with the sizes behind it, so wines, sangria and the Henkell piccolo do not take up several buttons each.</p>`,
 });
 
 for (const [slug, group] of Object.entries(GROUPS)) {
   const notes = {
     food: `<p>Prices as published by Clay Oven. Samosa at $5.95 and Dahi Puri at $9.95 were confirmed by the owner and are not on the printed card.</p>`,
     drinks: `<p>The card's single "Indian Lagers $8.95" line is built as three real buttons — Kingfisher, Taj Mahal and Cobra — on the owner's answer. Every item here carries the 10% liquor PST except Chai Tea.</p>`,
-    wine: `<p>Wines with a 6&nbsp;oz and 9&nbsp;oz price are poured by the glass. The five listed with a bottle price only are built bottle-only, read from where the price columns stop on the wine card — the one question the owner has not yet confirmed.</p>`,
+    wine: `<p>Wines with a 6&nbsp;oz and 9&nbsp;oz price are poured by the glass. The five listed with a bottle price only are built bottle-only, read from where the price columns stop on the wine card — the one question the owner has not yet confirmed. They are marked <span class="tag open">bottle only?</span> below.</p>`,
     'happy-hour': `<p>Served 4–6&nbsp;pm. These are separate buttons rather than a second price on each dish, so the normal buttons stay at one tap all day. The till does not switch to these prices by itself; staff tap the Happy Hour screen.</p>`,
   }[slug];
   page({
     file: `menu/${slug}/index.html`,
     depth: 2,
     title: `${group.title} — Clay Oven menu`,
+    kicker: 'The menu',
     heading: group.title,
     meta: `${countItems(group.categories)} items · ${countRows(group.categories)} price points`,
     crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'menu/', label: 'Menu' }, { href: `menu/${slug}/`, label: group.title }],
-    body: `${notes}\n\n${group.categories.map(menuSection).join('\n\n')}`,
+    body: `${notes}\n\n${group.categories.length > 1 ? jumpNav(group.categories) + '\n\n' : ''}${group.categories.map(menuSection).join('\n\n')}`,
   });
 }
 
@@ -245,7 +341,9 @@ page({
   file: 'setup/index.html',
   depth: 1,
   title: 'The setup — Clay Oven',
+  kicker: 'The setup',
   heading: 'The setup',
+  meta: 'What was built, what was decided, and how it was checked',
   crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'setup/', label: 'Setup' }],
   body: indexList([
     { href: 'tax/', label: 'Tax', meta: 'GST 5% · liquor PST 10%' },
@@ -259,7 +357,9 @@ page({
   file: 'setup/tax/index.html',
   depth: 2,
   title: 'Tax — Clay Oven',
+  kicker: 'The setup',
   heading: 'Tax',
+  meta: 'GST 5% on everything · liquor PST 10% on alcohol only',
   crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'setup/', label: 'Setup' }, { href: 'setup/tax/', label: 'Tax' }],
   body: `  <table>
     <thead><tr><th>Tax</th><th>Rate</th><th>Applies to</th></tr></thead>
@@ -286,7 +386,9 @@ page({
   file: 'setup/menu/index.html',
   depth: 2,
   title: 'How the menu is arranged — Clay Oven',
+  kicker: 'The setup',
   heading: 'How the menu is arranged',
+  meta: 'Sizes, channels, happy hour, and the owner’s six answers',
   crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'setup/', label: 'Setup' }, { href: 'setup/menu/', label: 'Arrangement' }],
   body: `  <p>One menu, named Dinner, holding ${TOTAL_CATS} groups that match the categories on the <a href="../../menu/">menu pages</a>.</p>
 
@@ -332,7 +434,9 @@ page({
   file: 'setup/till/index.html',
   depth: 2,
   title: 'The till — Clay Oven',
+  kicker: 'The setup',
   heading: 'The till',
+  meta: 'One device code, registered and waiting to pair',
   crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'setup/', label: 'Setup' }, { href: 'setup/till/', label: 'Till' }],
   body: `  <p>One device code, named <code>Clay Oven POS 1</code>, unpaired and waiting. Install Square Point of Sale, tap sign in, choose "use a device code", type it in. The code is a credential and was sent privately; it can be revoked and reissued at any time.</p>
 
@@ -343,9 +447,13 @@ page({
   file: 'setup/verification/index.html',
   depth: 2,
   title: 'How this was checked — Clay Oven',
+  kicker: 'The setup',
   heading: 'How this was checked',
+  meta: 'The live catalog exported back out of Square and diffed line by line',
   crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'setup/', label: 'Setup' }, { href: 'setup/verification/', label: 'Verification' }],
   body: `  <p>Not by trusting Square's green success banner. After every change the live catalog was exported back out of Square and compared line by line against what was meant to be there.</p>
+
+  <p class="status ok"><span class="dot" aria-hidden="true"></span>Exact match — 0 differences across ${TOTAL_ROWS} price points</p>
 
 <pre><code>expected rows: 151   live rows: 151
 expected items: 129  live items: 129
@@ -360,14 +468,16 @@ RESULT: exact match</code></pre>
 
   <p>GST does not appear in the export because it is a blanket rule rather than a per-item tag — which is what it should be, since new items inherit it. It was confirmed on the items instead: Butter Chicken carries GST only, Corona carries both taxes.</p>
 
-  <p>Every price on these menu pages is generated from that same export, so what you read here is what the till will ring.</p>`,
+  <p>Every price on these <a href="../../menu/">menu pages</a> is generated from that same export, so what you read here is what the till will ring.</p>`,
 });
 
 page({
   file: 'open/index.html',
   depth: 1,
   title: 'Still open — Clay Oven',
+  kicker: 'Still open',
   heading: 'Still open',
+  meta: 'Three items — one needs an answer, two need a decision',
   crumbs: [{ href: '', label: 'Clay Oven — Square' }, { href: 'open/', label: 'Still open' }],
   body: `  <h2>Wine by the glass <span class="tag open">needs the owner</span></h2>
 
@@ -386,107 +496,301 @@ page({
 
 fs.writeFileSync(path.join(ROOT, 'style.css'), `:root {
   --bg: #ffffff;
-  --fg: #0a0a0a;
-  --muted: #737373;
-  --faint: #a3a3a3;
-  --line: #eaeaea;
-  --soft: #fafafa;
-  --accent: #b45309;
+  --paper: #faf8f6;
+  --fg: #14120f;
+  --muted: #6b6862;
+  --faint: #9b978f;
+  --line: #e6e2dc;
+  --line-soft: #f0ece6;
+  --accent: #a2451c;
+  --accent-ink: #7f3413;
+  --accent-soft: #fbf1ea;
+  --accent-line: #e8cdb9;
+  --radius: 12px;
+  --wrap: 46rem;
+  --pad: 1.5rem;
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font: 16px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font: 16px/1.65 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  touch-action: manipulation;
+}
+
+/* ------------------------------------------------------------------ chrome */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  position: fixed;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 20;
+  background: var(--fg);
+  color: #fff;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-decoration: none;
 }
 header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid var(--line);
-  background: var(--bg);
 }
-header nav {
-  max-width: 44rem;
+header .bar {
+  max-width: var(--wrap);
   margin: 0 auto;
-  padding: 1.125rem 1.5rem;
+  padding: 0.75rem max(var(--pad), env(safe-area-inset-right)) 0.75rem max(var(--pad), env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 3.5rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: var(--fg);
+  border-radius: 8px;
+}
+.brand .mark {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+  border-radius: 7px;
+  background: linear-gradient(160deg, #b9552a, var(--accent-ink));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 2px rgba(20, 18, 15, 0.18);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.brand .wordmark { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+.brand .sub { color: var(--muted); font-size: 0.8125rem; white-space: nowrap; }
+.brand:hover .wordmark { color: var(--accent); }
+.crumbs {
+  margin-left: auto;
   font-size: 0.8125rem;
   color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-header nav a { color: var(--muted); border: 0; }
-header nav a:hover { color: var(--fg); }
-header nav a:last-child { color: var(--fg); }
-header .here { color: var(--fg); }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.crumbs .here { color: var(--fg); }
+.crumbs .slash { color: var(--faint); margin: 0 0.4rem; }
+
 main {
-  max-width: 44rem;
+  max-width: var(--wrap);
   margin: 0 auto;
-  padding: 5rem 1.5rem 8rem;
+  padding: 4rem max(var(--pad), env(safe-area-inset-right)) 5rem max(var(--pad), env(safe-area-inset-left));
+}
+
+/* -------------------------------------------------------------- typography */
+
+.pagehead { margin: 0 0 2.25rem; }
+.kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 h1 {
-  font-size: 1.75rem;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  font-weight: 600;
-  margin: 0 0 2.5rem;
+  font-size: clamp(1.75rem, 1.35rem + 1.7vw, 2.375rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 650;
+  margin: 0;
+  text-wrap: balance;
 }
+.pagehead .meta { margin: 0.75rem 0 0; }
 h2 {
-  font-size: 1.25rem;
+  font-size: 1.1875rem;
   letter-spacing: -0.015em;
-  font-weight: 600;
-  margin: 4rem 0 1.25rem;
+  font-weight: 650;
+  margin: 3.25rem 0 1rem;
+  scroll-margin-top: 5.5rem;
+  text-wrap: balance;
 }
-h1 + .meta { margin: -2rem 0 2.5rem; }
-p { margin: 0 0 1.25rem; }
-a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
-a:hover { border-color: var(--muted); }
+h2::before {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0.85;
+  margin-bottom: 0.875rem;
+}
+h2.cat::before { display: none; }
+p { margin: 0 0 1.25rem; text-wrap: pretty; }
 .meta { color: var(--muted); font-size: 0.875rem; }
-.lede { font-size: 1.0625rem; max-width: 38rem; }
-.sep { color: var(--faint); margin: 0 0.5rem; }
+.lede {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: #33302b;
+  max-width: 36rem;
+  margin-bottom: 2rem;
+}
+.sep { color: var(--faint); margin: 0 0.4rem; }
+
+/* Inline links read as links: accent, underlined, offset. */
+main p a, main li a, main td a, main blockquote a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--accent-line);
+  border-radius: 3px;
+}
+main p a:hover, main li a:hover, main td a:hover {
+  color: var(--accent-ink);
+  text-decoration-color: currentColor;
+}
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------ stat tiles */
+
 .figures {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2rem 1.5rem;
-  margin: 3rem 0 0;
-  padding: 2rem 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  gap: 0.625rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+.figures div {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem 1rem;
+  min-width: 0;
 }
 .figures b {
   display: block;
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 1.625rem;
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
 .figures span {
   display: block;
   color: var(--muted);
   font-size: 0.8125rem;
-  margin-top: 0.25rem;
+  line-height: 1.3;
+  margin-top: 0.35rem;
 }
+
+/* ------------------------------------------------------------ index rows */
+
 ul.index {
   list-style: none;
-  margin: 0 0 1.25rem;
+  margin: 1.25rem 0 1.75rem;
   padding: 0;
   border-top: 1px solid var(--line);
 }
 ul.index li {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  border-bottom: 1px solid var(--line);
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid var(--line);
 }
 ul.index li a {
-  flex: 1;
-  border: 0;
-  padding: 0.875rem 0;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 3.25rem;
+  padding: 0.75rem;
+  margin: 0 -0.75rem;
+  border-radius: 10px;
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 550;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
-ul.index li a:hover { color: var(--accent); }
-ul.index li span { color: var(--muted); font-size: 0.8125rem; }
+ul.index li a:hover { background: var(--paper); color: var(--accent); }
+ul.index .label { min-width: 0; }
+ul.index .detail {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+ul.index .chev {
+  flex: none;
+  color: var(--faint);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+ul.index li a:hover .chev { color: var(--accent); transform: translateX(3px); }
+
+/* --------------------------------------------------------- category jump */
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 2.5rem;
+  padding: 0;
+}
+.jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.jump a:hover { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent); }
+
+/* ------------------------------------------------------------- callout */
+
+.callout {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius);
+  padding: 1.125rem 1.25rem 1.25rem;
+  margin: 2.5rem 0 0;
+}
+.callout p { margin: 0; }
+.callout b { color: var(--accent-ink); }
+.callout .cta { margin-top: 0.75rem; font-size: 0.9375rem; }
+
+/* -------------------------------------------------------------- tables */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -495,43 +799,73 @@ table {
 }
 th {
   text-align: left;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--muted);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   padding: 0 1rem 0.625rem 0;
   border-bottom: 1px solid var(--line);
 }
 td {
   padding: 0.75rem 1rem 0.75rem 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-soft);
   vertical-align: top;
 }
 th:last-child, td:last-child { padding-right: 0; }
-td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.num { font-variant-numeric: tabular-nums; }
+h2.cat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-top: 2.75rem;
+  font-size: 1.0625rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+h2.cat .count {
+  margin-left: auto;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--faint);
+  white-space: nowrap;
+}
+table.menu { margin-top: 0.25rem; }
 table.menu td { padding: 0.8125rem 1rem 0.8125rem 0; }
-table.menu td.num { text-align: right; }
+table.menu td.num {
+  text-align: right;
+  font-weight: 550;
+  width: 1%;
+}
+table.menu .pp { white-space: nowrap; }
 table.menu .note {
   display: block;
   color: var(--muted);
   font-size: 0.8125rem;
-  margin-top: 0.15rem;
+  line-height: 1.45;
+  margin-top: 0.2rem;
 }
-table.menu .size { color: var(--muted); font-size: 0.8125rem; }
-ul { margin: 0 0 1.25rem; padding-left: 1.1rem; }
-li { margin-bottom: 0.5rem; }
-li::marker { color: var(--muted); }
+table.menu .size { color: var(--muted); font-size: 0.8125rem; font-weight: 400; }
+
+/* ---------------------------------------------------- lists and blocks */
+
+main ul:not(.index):not(.jump):not(.pages) { margin: 0 0 1.25rem; padding-left: 1.1rem; }
+main ul:not(.index):not(.jump):not(.pages) li { margin-bottom: 0.5rem; }
+li::marker { color: var(--accent); }
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.875em;
-  background: var(--soft);
+  background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 5px;
   padding: 0.1em 0.35em;
 }
 pre {
-  background: var(--soft);
+  background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 1.125rem 1.25rem;
   overflow-x: auto;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -542,28 +876,164 @@ pre {
 pre code { background: none; border: 0; padding: 0; font-size: inherit; }
 blockquote {
   margin: 0 0 1.25rem;
-  padding-left: 1.125rem;
-  border-left: 2px solid var(--line);
+  padding: 0.25rem 0 0.25rem 1.125rem;
+  border-left: 2px solid var(--accent-line);
   color: var(--muted);
+  font-style: italic;
 }
 .tag {
   display: inline-block;
   font-size: 0.75rem;
-  padding: 0.1rem 0.5rem;
+  line-height: 1.5;
+  padding: 0.05rem 0.5rem;
   border-radius: 999px;
   border: 1px solid var(--line);
+  background: var(--paper);
   color: var(--muted);
-  vertical-align: 0.15em;
+  vertical-align: 0.1em;
   margin-left: 0.5rem;
   font-weight: 500;
+  font-style: normal;
+  white-space: nowrap;
 }
-.tag.open { color: var(--accent); border-color: #f0d5b4; }
-hr { border: 0; border-top: 1px solid var(--line); margin: 4rem 0 0; }
-footer { color: var(--muted); font-size: 0.8125rem; margin-top: 2rem; }
-@media (max-width: 640px) {
-  main { padding: 3rem 1.25rem 5rem; }
-  header nav { padding: 1rem 1.25rem; }
-  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.5rem; }
+.tag.open {
+  color: var(--accent-ink);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 550;
+}
+.status .dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  flex: none;
+  background: #1a7f4b;
+  box-shadow: 0 0 0 3px rgba(26, 127, 75, 0.15);
+}
+
+/* --------------------------------------------------------------- pager */
+
+.pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 4rem 0 0;
+}
+.pager a {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem;
+  text-decoration: none;
+  color: var(--fg);
+  background: #fff;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.pager a:hover { background: var(--paper); border-color: var(--accent-line); }
+.pager .dir {
+  display: block;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+.pager .to { font-size: 0.9375rem; font-weight: 550; }
+.pager a:hover .to { color: var(--accent); }
+.pager .to-next { text-align: right; }
+
+/* ------------------------------------------------------------- footer */
+
+.siteend {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.sitenav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1.75rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.sitenav h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.sitenav ul { list-style: none; margin: 0; padding: 0; }
+.sitenav li { margin: 0; }
+.sitenav a {
+  display: block;
+  padding: 0.3rem 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+.sitenav a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.sitenav a[aria-current="page"] { color: var(--fg); font-weight: 550; }
+.colophon { color: var(--faint); font-size: 0.8125rem; margin: 0; }
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 700px) {
+  main { padding-top: 2.75rem; padding-bottom: 3.5rem; }
+  :root { --pad: 1.125rem; }
+  .brand .sub { display: none; }
+  .crumbs { font-size: 0.75rem; }
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .figures div { padding: 0.75rem 0.875rem 0.875rem; }
+  .figures b { font-size: 1.5rem; }
+  /* Row links stack: title and chevron on one line, the detail under it. */
+  ul.index li a { flex-wrap: wrap; gap: 0.5rem 0.875rem; }
+  ul.index .label { flex: 1 1 auto; }
+  ul.index .chev { order: 2; margin-left: auto; }
+  ul.index .detail {
+    order: 3;
+    flex: 1 0 100%;
+    margin: -0.15rem 0 0;
+    text-align: left;
+  }
+  .pager { grid-template-columns: 1fr; }
+  .pager .to-next { text-align: left; }
+  .pager .empty { display: none; }
+  /* Sizes stack cleanly instead of running off the side of the phone. */
+  table.menu td.num { text-align: right; }
+  table.menu td.num .sep { display: none; }
+  table.menu .pp { display: block; line-height: 1.5; }
+  h2 { margin-top: 2.75rem; }
+}
+@media (max-width: 380px) {
+  .figures { gap: 0.5rem; }
+  .figures b { font-size: 1.375rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ---------------------------------------------------------------- print */
+
+@media print {
+  header, .pager, .sitenav, .skip, .jump, .callout { display: none !important; }
+  main { max-width: none; padding: 0; }
+  a { color: inherit !important; text-decoration: none !important; }
+  h2 { break-after: avoid; }
+  h2::before { display: none; }
+  tr, .figures div { break-inside: avoid; }
+  .siteend { border-top: 1px solid #ccc; }
 }
 `);
 

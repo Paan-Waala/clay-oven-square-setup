@@ -2,18 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
 <title>Clay Oven — Square point of sale</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <header>
-  <nav><span class="here">Clay Oven — Square</span></nav>
+  <div class="bar">
+    <a class="brand" href="./"><span class="mark" aria-hidden="true">CO</span><span class="wordmark">Clay Oven</span><span class="sub">Square point of sale</span></a>
+    <nav class="crumbs" aria-label="Breadcrumb"><span class="here" aria-current="page">Overview</span></nav>
+  </div>
 </header>
-<main>
-  <h1>Clay Oven — Square point of sale</h1>
-  <p class="meta">Built 24 August 2026 · Paan Waala</p>
+<main id="content">
+  <div class="pagehead">
+    <p class="kicker">Build report · 24 August 2026</p>
+    <h1>Clay Oven — Square point of sale</h1>
+    <p class="meta">Prepared for Clay Oven Indian Restaurant by Paan Waala</p>
+  </div>
   <p class="lede">The full menu is in Square, BC tax is applied and verified, happy hour is built, and a till is ready to pair.</p>
 
   <div class="figures">
@@ -24,29 +33,71 @@
   </div>
 
   <h2>The menu</h2>
+
+  <p>Every button a server will see, in the order the till shows it.</p>
   <ul class="index">
-    <li><a href="menu/food/">Food</a><span>73 items</span></li>
-    <li><a href="menu/drinks/">Drinks</a><span>31 items</span></li>
-    <li><a href="menu/wine/">Wine</a><span>16 items</span></li>
-    <li><a href="menu/happy-hour/">Happy hour</a><span>9 items</span></li>
+    <li><a href="menu/food/"><span class="label">Food</span><span class="detail">73 items</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="menu/drinks/"><span class="label">Drinks</span><span class="detail">31 items</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="menu/wine/"><span class="label">Wine</span><span class="detail">16 items</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="menu/happy-hour/"><span class="label">Happy hour</span><span class="detail">9 items</span><span class="chev" aria-hidden="true">→</span></a></li>
   </ul>
 
   <h2>The setup</h2>
+
+  <p>What was built, what was decided, and how it was checked.</p>
   <ul class="index">
-    <li><a href="setup/tax/">Tax</a><span>GST 5% · liquor PST 10%</span></li>
-    <li><a href="setup/menu/">How the menu is arranged</a><span>sizes, channels, happy hour</span></li>
-    <li><a href="setup/till/">The till</a><span>1 device code</span></li>
-    <li><a href="setup/verification/">How this was checked</a><span>export and diff</span></li>
-    <li><a href="open/">Still open</a><span>3 items</span></li>
+    <li><a href="setup/tax/"><span class="label">Tax</span><span class="detail">GST 5% · liquor PST 10%</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="setup/menu/"><span class="label">How the menu is arranged</span><span class="detail">sizes, channels, happy hour</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="setup/till/"><span class="label">The till</span><span class="detail">1 device code</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="setup/verification/"><span class="label">How this was checked</span><span class="detail">export and diff</span><span class="chev" aria-hidden="true">→</span></a></li>
   </ul>
+
+  <aside class="callout">
+    <p><b>One question still needs the owner.</b> Five wines — Ravenswood, Catena, Seghesio, Daou and Cloudy Bay — are built bottle-only. If any are poured by the glass, that is ten missing prices and a minute's work.</p>
+    <p class="cta"><a href="open/">See the three open items</a></p>
+  </aside>
 
   <h2>What was done</h2>
 
   <p>Clay Oven's printed and web menus were transcribed, priced and imported into a new Square catalog, then checked line by line against a fresh export of the live account. BC tax was applied — and Square's own suggested rate was overridden, because it would have been wrong for a restaurant. Happy hour was built as its own screen. One till was registered and is waiting to be paired.</p>
 
   <p>Six questions the menus could not answer were put to the owner and are now built in. One is still outstanding.</p>
-  <hr>
-  <footer>Prepared by Operator for Clay Oven Indian Restaurant. Menu as built in Square on 24 August 2026.</footer>
+  <nav class="pager" aria-label="Previous and next page">
+    <span class="empty"></span>
+    <a class="to-next" href="menu/"><span class="dir">Next →</span><span class="to">The menu</span></a>
+  </nav>
+  <footer class="siteend">
+  <nav class="sitenav" aria-label="All pages">
+    <div>
+      <h3>The menu</h3>
+      <ul class="pages">
+        <li><a href="menu/">The menu</a></li>
+        <li><a href="menu/food/">Food</a></li>
+        <li><a href="menu/drinks/">Drinks</a></li>
+        <li><a href="menu/wine/">Wine</a></li>
+        <li><a href="menu/happy-hour/">Happy hour</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>The setup</h3>
+      <ul class="pages">
+        <li><a href="setup/">The setup</a></li>
+        <li><a href="setup/tax/">Tax</a></li>
+        <li><a href="setup/menu/">How the menu is arranged</a></li>
+        <li><a href="setup/till/">The till</a></li>
+        <li><a href="setup/verification/">How this was checked</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>This report</h3>
+      <ul class="pages">
+        <li><a href="" aria-current="page">Overview</a></li>
+        <li><a href="open/">Still open</a></li>
+      </ul>
+    </div>
+  </nav>
+    <p class="colophon">Prepared by Operator for Clay Oven Indian Restaurant. Menu as built in Square on 24 August 2026, generated from the live catalog export.</p>
+  </footer>
 </main>
 </body>
 </html>

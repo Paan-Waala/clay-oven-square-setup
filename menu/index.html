@@ -2,28 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
 <title>The menu — Clay Oven</title>
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=2">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <header>
-  <nav><a href="../">Clay Oven — Square</a><span class="sep">/</span><a href="../menu/">Menu</a></nav>
+  <div class="bar">
+    <a class="brand" href="../"><span class="mark" aria-hidden="true">CO</span><span class="wordmark">Clay Oven</span><span class="sub">Square point of sale</span></a>
+    <nav class="crumbs" aria-label="Breadcrumb"><span class="here" aria-current="page">Menu</span></nav>
+  </div>
 </header>
-<main>
-  <h1>The menu</h1>
-  <p class="meta">129 items · 151 price points · 21 categories</p>
+<main id="content">
+  <div class="pagehead">
+    <p class="kicker">The menu</p>
+    <h1>The menu</h1>
+    <p class="meta">129 items · 151 price points · 21 categories</p>
+  </div>
+  <p class="lede">This is what a server sees on the till, in the order Square shows it. Every price here is generated from the live catalog export, so the page and the till cannot drift apart.</p>
   <ul class="index">
-    <li><a href="food/">Food</a><span>73 items</span></li>
-    <li><a href="drinks/">Drinks</a><span>31 items</span></li>
-    <li><a href="wine/">Wine</a><span>16 items</span></li>
-    <li><a href="happy-hour/">Happy hour</a><span>9 items</span></li>
+    <li><a href="food/"><span class="label">Food</span><span class="detail">73 items</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="drinks/"><span class="label">Drinks</span><span class="detail">31 items</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="wine/"><span class="label">Wine</span><span class="detail">16 items</span><span class="chev" aria-hidden="true">→</span></a></li>
+    <li><a href="happy-hour/"><span class="label">Happy hour</span><span class="detail">9 items</span><span class="chev" aria-hidden="true">→</span></a></li>
   </ul>
 
-  <p>This is what a server sees on the till, in the order Square shows it. Anything sold in more than one size is one button with the sizes behind it, so wines, sangria and the Henkell piccolo do not take up several buttons each.</p>
-  <hr>
-  <footer>Prepared by Operator for Clay Oven Indian Restaurant. Menu as built in Square on 24 August 2026.</footer>
+  <p>Anything sold in more than one size is one button with the sizes behind it, so wines, sangria and the Henkell piccolo do not take up several buttons each.</p>
+  <nav class="pager" aria-label="Previous and next page">
+    <a class="to-prev" href="../"><span class="dir">← Previous</span><span class="to">Overview</span></a>
+    <a class="to-next" href="../menu/food/"><span class="dir">Next →</span><span class="to">Food</span></a>
+  </nav>
+  <footer class="siteend">
+  <nav class="sitenav" aria-label="All pages">
+    <div>
+      <h3>The menu</h3>
+      <ul class="pages">
+        <li><a href="../menu/" aria-current="page">The menu</a></li>
+        <li><a href="../menu/food/">Food</a></li>
+        <li><a href="../menu/drinks/">Drinks</a></li>
+        <li><a href="../menu/wine/">Wine</a></li>
+        <li><a href="../menu/happy-hour/">Happy hour</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>The setup</h3>
+      <ul class="pages">
+        <li><a href="../setup/">The setup</a></li>
+        <li><a href="../setup/tax/">Tax</a></li>
+        <li><a href="../setup/menu/">How the menu is arranged</a></li>
+        <li><a href="../setup/till/">The till</a></li>
+        <li><a href="../setup/verification/">How this was checked</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>This report</h3>
+      <ul class="pages">
+        <li><a href="../">Overview</a></li>
+        <li><a href="../open/">Still open</a></li>
+      </ul>
+    </div>
+  </nav>
+    <p class="colophon">Prepared by Operator for Clay Oven Indian Restaurant. Menu as built in Square on 24 August 2026, generated from the live catalog export.</p>
+  </footer>
 </main>
 </body>
 </html>
