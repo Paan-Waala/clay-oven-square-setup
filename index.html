@@ -49,8 +49,8 @@
     margin: 0;
   }
   h2 {
-    font-size: 1.0625rem;
-    letter-spacing: -0.01em;
+    font-size: 1.25rem;
+    letter-spacing: -0.015em;
     font-weight: 600;
     margin: 4.5rem 0 1.25rem;
   }
@@ -73,15 +73,14 @@
     max-width: 38rem;
   }
   .figures {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5rem 3.25rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
     margin: 3.5rem 0 0;
     padding: 2rem 0;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
-  .figures div { min-width: 5rem; }
   .figures b {
     display: block;
     font-size: 1.5rem;
@@ -174,7 +173,7 @@
   }
   @media (max-width: 640px) {
     main { padding: 4rem 1.25rem 6rem; }
-    .figures { gap: 1.75rem 2.5rem; }
+    .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.5rem; }
   }
 </style>
 </head>
@@ -191,8 +190,6 @@
     <div><b>151</b><span>price points</span></div>
     <div><b>21</b><span>categories</span></div>
     <div><b>50</b><span>alcohol items</span></div>
-    <div><b>1</b><span>menu</span></div>
-    <div><b>1</b><span>device code</span></div>
   </div>
 
   <h2>The catalog</h2>
